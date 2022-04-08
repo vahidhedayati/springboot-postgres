@@ -245,3 +245,62 @@ bash-5.1# ctrl D
 exit
 
 ``` 
+
+#### Manually calling flyaway
+```
+mvn flyway:migrate -Dflyway.url=jdbc:postgresql://localhost:5432/mytest -Dflyway.user=postgres -Dflyway.password=password
+
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by com.google.inject.internal.cglib.core.$ReflectUtils$1 (file:/usr/share/maven/lib/guice.jar) to method java.lang.ClassLoader.defineClass(java.lang.String,byte[],int,int,java.security.ProtectionDomain)
+WARNING: Please consider reporting this to the maintainers of com.google.inject.internal.cglib.core.$ReflectUtils$1
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -------------------< com.example:SpringBootPostgres >-------------------
+[INFO] Building demo 0.0.1-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- flyway-maven-plugin:8.0.5:migrate (default-cli) @ SpringBootPostgres ---
+[INFO] Flyway Community Edition 8.0.5 by Redgate
+[INFO] Database: jdbc:postgresql://localhost:5432/mytest (PostgreSQL 14.2)
+[INFO] Successfully validated 1 migration (execution time 00:00.026s)
+[INFO] Current version of schema "public": 1
+[INFO] Schema "public" is up to date. No migration necessary.
+[INFO] Flyway Community Edition 8.0.5 by Redgate
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.318 s
+[INFO] Finished at: 2022-04-08T15:02:47+01:00
+[INFO] ------------------------------------------------------------------------
+
+```
+
+
+## Using Tabbed postman chrome plugin
+I was able to set `Headers` as `Content-Type` `application/json`
+Post to `http://localhost:8080/api/v1/personpostgres`  with body of `{ "name": "first lastName" }`  Then using `GET` to query `http://localhost:8080/api/v1/personpostgres` and found listed:
+```
+[
+    {
+        "id": "230d207a-ba7c-4fe8-b189-7a3e6e5a9fd1",
+        "name": "name surname"
+    },
+    {
+        "id": "d7ec7caf-dd28-4bb6-a0ec-87a496542c9f",
+        "name": "John Smith"
+    },
+    {
+        "id": "cc21e9c0-266e-4dd9-8eb9-66674c7e10cd",
+        "name": "Tim Barr"
+    },
+    {
+        "id": "10590204-97d7-4879-aebd-66705cd9c718",
+        "name": "first lastName"
+    }
+]
+
+```
+
+Sent `http://localhost:8080/api/v1/personpostgres/10590204-97d7-4879-aebd-66705cd9c718` as a `DELETE` request which removed the ID from DB

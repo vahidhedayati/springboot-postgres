@@ -11,43 +11,44 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("api/v1/person")
+@RequestMapping("api/v1/personpostgres")
 @RestController
-public class PersonController {
+public class PersonPostgresController {
 
-    private final PersonService personService;
+    private final PersonPostgresService personPostgresService;
 
     @Autowired
-    public PersonController(PersonService personService) {
-        this.personService = personService;
+    public PersonPostgresController(PersonPostgresService personPostgresService) {
+
+        this.personPostgresService = personPostgresService;
     }
 
     @PostMapping
-    public boolean addPerson(@RequestBody  Person person) {
-        return personService.addPerson(person);
+    public boolean addPersonPostgres(@Valid @NonNull @RequestBody  Person person) {
+        return personPostgresService.addPerson(person);
     }
 
-    // http://localhost:8080/api/v1/person
+
     @GetMapping
-    public List<Person> getUsers() {
-        return personService.getUsers();
+    public List<Person> getPostGresUsers() {
+        return personPostgresService.getUsers();
     }
-
 
     @GetMapping(path= "{id}")
     public Person getUser(@PathVariable("id") UUID id) {
-        return personService.findById(id).orElse(null);
+        return personPostgresService.findById(id).orElse(null);
     }
+
 
 
     @DeleteMapping(path="{id}")
     public boolean deletePerson(@PathVariable("id")  UUID id) {
-        return personService.deletePerson(id);
+        return personPostgresService.deletePerson(id);
     }
 
     @PutMapping(path="{id}")
     public boolean updatePerson(@PathVariable("id") UUID id, @Valid @NonNull @RequestBody Person person) {
-        return personService.updatePerson(id, person);
+        return personPostgresService.updatePerson(id, person);
     }
 
 }

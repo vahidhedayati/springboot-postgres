@@ -17,7 +17,7 @@ public interface PersonDao {
     boolean addPerson(Person person);
 
     List<Person> getUsers();
-    public Person findUserViaMapById(UUID id);
+    //public Person findUserViaMapById(UUID id);
     public Optional<Person> findUserById(UUID id);
     public Optional<Person> findUserByName(String name);
     boolean deletePerson(UUID id);
