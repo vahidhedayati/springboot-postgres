@@ -304,3 +304,10 @@ Post to `http://localhost:8080/api/v1/personpostgres`  with body of `{ "name": "
 ```
 
 Sent `http://localhost:8080/api/v1/personpostgres/10590204-97d7-4879-aebd-66705cd9c718` as a `DELETE` request which removed the ID from DB
+
+
+### Using h2 Console to interact with postgres Db
+You can now goto ```http://localhost:8080/h2/``` and using `Generic PostgreSQL` 
+configure `jdbc:postgresql://localhost:5432/mytest` 
+userName: `postgres` password: `password` 
+as per above configuration and interact with postgres via web interface
