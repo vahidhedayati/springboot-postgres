@@ -311,3 +311,8 @@ You can now goto ```http://localhost:8080/h2/``` and using `Generic PostgreSQL`
 configure `jdbc:postgresql://localhost:5432/mytest` 
 userName: `postgres` password: `password` 
 as per above configuration and interact with postgres via web interface
+
+
+### Basic Thymeleaf test:
+Navigate to: ```http://localhost:8080/api/v1/people``` this will load in listUsers html and display a 
+list of existing users from postgres db 
