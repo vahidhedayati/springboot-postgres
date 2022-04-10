@@ -316,3 +316,54 @@ as per above configuration and interact with postgres via web interface
 ### Basic Thymeleaf test:
 Navigate to: ```http://localhost:8080/api/v1/people``` this will load in listUsers html and display a 
 list of existing users from postgres db 
+
+
+### Hibernate Transactional via `spring-boot-starter-jpa` added to demo project to student Class
+Using Tabbed postman chrome extension with headers set as `Content-Type: Application/json`  &
+Posting following request to `http://localhost:8080/api/v1/student` 
+```
+{ "id": "2",
+  "name": "second user",
+ "age": "24"
+}
+```
+
+Repeated above once or twice then change method to `GET`
+```
+[
+    {
+        "id": 1,
+        "name": "first lastName",
+        "status": null,
+        "age": 24
+    },
+    {
+        "id": 2,
+        "name": "second user",
+        "status": null,
+        "age": 24
+    }
+]
+```
+
+this is now using Transaction and `spring-boot-starter-jpa` & using `@Entity
+@Table(name = "student")` But because Student extends User and there is no definition to separate tables postgres has following data for above:
+
+```
+mytest=# \dt student
+Did not find any relation named "student".
+mytest=# \dt users
+         List of relations
+ Schema | Name  | Type  |  Owner   
+--------+-------+-------+----------
+ public | users | table | postgres
+(1 row)
+
+mytest=# select * from users;
+ id |      name      | status |  dtype  | age 
+----+----------------+--------+---------+-----
+  1 | first lastName |        | Student |  24
+  2 | second user    |        | Student |  24
+(2 rows)
+```
+
