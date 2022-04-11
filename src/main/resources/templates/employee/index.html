@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="templates/layout :: page">
+<head>
+
+</head>
+<body>
+<div th:fragment="content-title">Welcome to Employee Listing</div>
+<div th:fragment="objectName">Employee</div>
+<div th:fragment="currentTitle">List All Employees</div>
+
+
+<div th:fragment="content">
+
+    <span th:if="${employee}">
+        <span text="${employee} has been saved"></span>
+    </span>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Department
+            </th>
+
+        </tr>
+    </thead>
+        <tbody>
+            <tr th:each="employee: ${employees}">
+                <td th:text="${employee.id}"/>
+                <td th:text="${employee.email}"/>
+                <td th:text="${employee.department}"/>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
+
