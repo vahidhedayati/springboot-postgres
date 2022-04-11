@@ -2,18 +2,38 @@ package com.example.SpringBootPostgres.service;
 
 import com.example.SpringBootPostgres.dao.StudentDao;
 import com.example.SpringBootPostgres.model.Student;
+import com.example.SpringBootPostgres.repository.StudentJpaRepository;
 import com.example.SpringBootPostgres.repository.StudentRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService implements StudentDao {
 
     @Autowired
     StudentRepository studentRepository;
+
+    @Autowired
+    StudentJpaRepository studentJpaRepository;
+
+
+    public Optional<Student> findStudentByName(String name) {
+        return studentJpaRepository.findOneByName(name);
+    }
+
+
+
+    @Override
+    public Optional<Student> findStudentById(int id) {
+       return studentRepository.findById(id);
+
+    }
 
     @Override
     @Transactional

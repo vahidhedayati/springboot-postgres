@@ -328,6 +328,24 @@ Posting following request to `http://localhost:8080/api/v1/student`
 }
 ```
 
+Another request
+```
+{ "id": "4",
+  "name": "fourth user",
+ "age": "25", 
+ "address": { "id": "2", "line1": "2 abc street", "line2": "long lane", "city":"London", "postcode": "SW1 1TL"}
+}
+```
+
+
+```
+{ "id": "5",
+  "name": "fifth user",
+ "age": "25", 
+ "address": { "id": "1", "line1": "1 abc street", "line2": "long lane", "city":"London", "postcode": "SW1 1TL"},
+ "courses": [{  "id": "1", "name": "science"}, {  "id": "2", "name": "Engineering"}, {  "id": "3", "name": "Health"}]
+}
+```
 Repeated above once or twice then change method to `GET`
 ```
 [
@@ -335,13 +353,66 @@ Repeated above once or twice then change method to `GET`
         "id": 1,
         "name": "first lastName",
         "status": null,
-        "age": 24
+        "age": 24,
+        "address": null,
+        "courses": []
     },
     {
         "id": 2,
         "name": "second user",
         "status": null,
-        "age": 24
+        "age": 24,
+        "address": null,
+        "courses": []
+    },
+    {
+        "id": 3,
+        "name": "third user",
+        "status": null,
+        "age": 24,
+        "address": null,
+        "courses": []
+    },
+    {
+        "id": 5,
+        "name": "fifth user",
+        "status": null,
+        "age": 25,
+        "address": {
+            "id": 6,
+            "line1": "1 abc street",
+            "line2": "long lane",
+            "city": "London",
+            "postcode": "SW1 1TL"
+        },
+        "courses": [
+            {
+                "id": 9,
+                "name": "Engineering"
+            },
+            {
+                "id": 8,
+                "name": "science"
+            },
+            {
+                "id": 7,
+                "name": "Health"
+            }
+        ]
+    },
+    {
+        "id": 11,
+        "name": "fourth user",
+        "status": null,
+        "age": 25,
+        "address": {
+            "id": 10,
+            "line1": "2 abc street",
+            "line2": "long lane",
+            "city": "London",
+            "postcode": "SW1 1TL"
+        },
+        "courses": []
     }
 ]
 ```
@@ -366,4 +437,6 @@ mytest=# select * from users;
   2 | second user    |        | Student |  24
 (2 rows)
 ```
+
+
 
