@@ -13,6 +13,7 @@
 
 <form th-action="" th-object="${employee}" method="post">
     <input type="text" th:filed="*{name}" placeholder="Enter a name" class="form-control col-6 mb-2"/>
+    <input type="text" th:filed="*{status}" placeholder="Enter status" class="form-control col-6 mb-2"/>
     <input type="text" th:filed="*{email}" placeholder="Enter an email address" class="form-control col-6 mb-2"/>
     <input type="text" th:filed="*{department}" placeholder="Enter a department" class="form-control col-6 mb-2"/>
     <button type="submit" class="btn btn-danger">Save Employee</button>

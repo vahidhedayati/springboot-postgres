@@ -29,13 +29,14 @@ public class EmployeeController {
     public ModelAndView addEmployee() {
         ModelAndView mav = new ModelAndView(FOLDER+"/add");
         Employee employee = new Employee();
-        employee.setName("tee");
+       // employee.setName("tee");
         mav.addObject("employee", employee);
         return mav;
     }
 
     @PostMapping("/add")
     public String saveEmployee(@ModelAttribute Employee employee) {
+        System.out.println(" em "+employee.toString());
         employeeRepository.save(employee);
         ModelAndView mav = new ModelAndView(FOLDER+"/saved");
         mav.addObject("employee", employee);
