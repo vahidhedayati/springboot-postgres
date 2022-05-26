@@ -32,6 +32,7 @@ public class PersonPostgresController {
             return ResponseEntity.badRequest().body(new HttpResponse("person was not added"));
         }
         return ResponseEntity.ok(person);
+
     }
 
 
