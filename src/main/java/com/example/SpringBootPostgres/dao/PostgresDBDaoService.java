@@ -22,6 +22,7 @@ public class PostgresDBDaoService implements PersonDao {
 
     @Override
     public boolean addPerson(UUID id, String name) {
+        System.out.println("----> "+id+"___-"+name+"------------------------------------------------------------------");
         String insert = "insert into Person (id, name) values(?,?)";
         return jdbcTemplate.update(insert, id, name)==1;
 
@@ -29,7 +30,9 @@ public class PostgresDBDaoService implements PersonDao {
 
     @Override
     public boolean addPerson(Person person) {
+        System.out.println("----> "+person.getName()+"------------------------------------------------------------------");
         return addPerson(UUID.randomUUID(), person.getName());
+
     }
 
     @Override

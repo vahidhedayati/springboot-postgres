@@ -1,6 +1,7 @@
 package com.example.SpringBootPostgres.api;
 
 import com.example.SpringBootPostgres.HttpResponse;
+import com.example.SpringBootPostgres.dao.PostgresDBDaoService;
 import com.example.SpringBootPostgres.model.Person;
 import com.example.SpringBootPostgres.service.PersonPostgresService;
 import com.example.SpringBootPostgres.service.PersonService;
@@ -21,13 +22,15 @@ public class PersonPostgresController {
 
     @Autowired
     public PersonPostgresController(PersonPostgresService personPostgresService) {
-
         this.personPostgresService = personPostgresService;
     }
 
     @PostMapping
     ResponseEntity<?> addPersonPostgres(@Valid @NonNull @RequestBody  Person person) {
-        boolean added =   personPostgresService.addPerson(person);
+        System.out.println("----------------------------------------> "+person.getName()+"----------------------------------------::"+personPostgresService.addPerson(person));
+
+
+        boolean added = personPostgresService.addPerson(person);
         if (!added) {
             return ResponseEntity.badRequest().body(new HttpResponse("person was not added"));
         }

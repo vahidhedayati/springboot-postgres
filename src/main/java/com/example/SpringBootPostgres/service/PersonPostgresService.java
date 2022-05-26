@@ -20,7 +20,12 @@ public class PersonPostgresService {
         this.personDao = personDao;
     }
 
+    public boolean addPerson(String personName) {
+        System.out.println("--Via Name String "+personName+"------------------------------------------------------");
+        return personDao.addPerson(personName);
+    }
     public boolean addPerson(Person person) {
+        System.out.println("--Via Person Object "+person.getName()+"------------------------------------------------------");
         return personDao.addPerson(person);
     }
 
