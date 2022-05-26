@@ -1,9 +1,11 @@
 package com.example.SpringBootPostgres.api;
 
+import com.example.SpringBootPostgres.HttpResponse;
 import com.example.SpringBootPostgres.model.Person;
 import com.example.SpringBootPostgres.service.PersonPostgresService;
 import com.example.SpringBootPostgres.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,31 +26,53 @@ public class PersonPostgresController {
     }
 
     @PostMapping
-    public boolean addPersonPostgres(@Valid @NonNull @RequestBody  Person person) {
-        return personPostgresService.addPerson(person);
+    ResponseEntity<?> addPersonPostgres(@Valid @NonNull @RequestBody  Person person) {
+        boolean added =   personPostgresService.addPerson(person);
+        if (!added) {
+            return ResponseEntity.badRequest().body(new HttpResponse("person was not added"));
+        }
+        return ResponseEntity.ok(person);
     }
 
 
     @GetMapping
-    public List<Person> getPostGresUsers() {
-        return personPostgresService.getUsers();
+    ResponseEntity<?> getPostGresUsers() {
+        List<Person> users =  personPostgresService.getUsers();
+        if (users.size()>0) {
+            return ResponseEntity.ok(users);
+        }
+        return ResponseEntity.badRequest().body(new HttpResponse("no users found"));
     }
 
     @GetMapping(path= "{id}")
-    public Person getUser(@PathVariable("id") UUID id) {
-        return personPostgresService.findById(id).orElse(null);
+    ResponseEntity<?> getUser(@PathVariable("id") UUID id) {
+        Person person =  personPostgresService.findById(id).orElse(null);
+        if (person==null) {
+            return ResponseEntity.badRequest().body(new HttpResponse("user not found"));
+        }
+        return ResponseEntity.ok(person);
+
     }
 
 
 
     @DeleteMapping(path="{id}")
-    public boolean deletePerson(@PathVariable("id")  UUID id) {
-        return personPostgresService.deletePerson(id);
+    ResponseEntity<?> deletePerson(@PathVariable("id")  UUID id) {
+
+        boolean removed = personPostgresService.deletePerson(id);
+        if (!removed) {
+            return ResponseEntity.badRequest().body(new HttpResponse("person was not removed"));
+        }
+        return ResponseEntity.ok(new HttpResponse("success user has been removed"));
     }
 
     @PutMapping(path="{id}")
-    public boolean updatePerson(@PathVariable("id") UUID id, @Valid @NonNull @RequestBody Person person) {
-        return personPostgresService.updatePerson(id, person);
+    ResponseEntity<?> updatePerson(@PathVariable("id") UUID id, @Valid @NonNull @RequestBody Person person) {
+        boolean updated = personPostgresService.updatePerson(id, person);
+        if (!updated) {
+            return ResponseEntity.badRequest().body(new HttpResponse("person was not updated"));
+        }
+        return ResponseEntity.ok(person);
     }
 
 }
