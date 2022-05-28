@@ -21,6 +21,7 @@ public class EmployeeController {
     public ModelAndView index() {
         ModelAndView mav = new ModelAndView(FOLDER+"/index");
         List<Employee> listing = employeeRepository.findAll();
+        mav.addObject("path","employee");
         mav.addObject("employees", listing);
         return mav;
     }
@@ -29,6 +30,7 @@ public class EmployeeController {
     public ModelAndView addEmployee() {
         ModelAndView mav = new ModelAndView(FOLDER+"/add");
         Employee employee = new Employee();
+        mav.addObject("path","employee");
        // employee.setName("tee");
         mav.addObject("employee", employee);
         return mav;
@@ -38,8 +40,10 @@ public class EmployeeController {
     public String saveEmployee(@ModelAttribute Employee employee) {
         System.out.println(" em "+employee.toString());
         employeeRepository.save(employee);
+
         ModelAndView mav = new ModelAndView(FOLDER+"/saved");
         mav.addObject("employee", employee);
+        mav.addObject("path","employee");
         return "redirect:/api/v1/employee/";
         //return mav;
     }
