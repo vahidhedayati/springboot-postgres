@@ -29,6 +29,20 @@ public class PostgresDBDaoService implements PersonDao {
     }
 
     @Override
+    public void saveAll(List<Person> people) {
+        for (Person person: people ) {
+            addPerson(person);
+        }
+     }
+
+    @Override
+    public void deleteAll() {
+        for (Person person: getUsers() ) {
+            deletePerson(person.getId());
+        }
+    }
+
+    @Override
     public boolean addPerson(Person person) {
         System.out.println("----> "+person.getName()+"------------------------------------------------------------------");
         return addPerson(UUID.randomUUID(), person.getName());

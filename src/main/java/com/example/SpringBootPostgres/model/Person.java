@@ -13,6 +13,11 @@ public class Person {
     @NotBlank
     private final String name;
 
+    public Person(String name) {
+        this.id = UUID.randomUUID();
+        this.name=name;
+    }
+
     public Person(@JsonProperty("id") UUID id, @JsonProperty("name") String name) {
         this.id = id;
         this.name = name;

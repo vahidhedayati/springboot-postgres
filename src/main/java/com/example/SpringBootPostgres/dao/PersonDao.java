@@ -14,6 +14,9 @@ public interface PersonDao {
         return addPerson(UUID.randomUUID(), name);
     }
 
+    void saveAll(List<Person> people);
+    void deleteAll();
+
     boolean addPerson(Person person);
 
     List<Person> getUsers();

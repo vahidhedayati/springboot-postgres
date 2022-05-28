@@ -25,6 +25,21 @@ public class InternalDBDaoService implements PersonDao {
     }
 
     @Override
+    public void saveAll(List<Person> people) {
+        for (Person person: people ) {
+            addPerson(person);
+        }
+    }
+
+    @Override
+    public void deleteAll() {
+        LIST_DB = new ArrayList<>();
+        STACK_DB = new Stack<>();
+        HASHSET_DB = new HashSet<>();
+        HASHMAP_DB = new HashMap<>();
+    }
+
+    @Override
     public boolean addPerson(Person person) {
         if (HASHMAP_DB.get(person.getId())==null) {
             LIST_DB.add(person);

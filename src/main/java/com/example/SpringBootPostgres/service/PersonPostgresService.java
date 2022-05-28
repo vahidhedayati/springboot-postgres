@@ -48,4 +48,11 @@ public class PersonPostgresService {
     public boolean updatePerson(UUID id, Person person) {
         return personDao.updatePerson(id, person);
     }
+
+    public void saveAll(List<Person> people) {
+        personDao.saveAll(people);
+    }
+    public void deleteAll() {
+        personDao.deleteAll();
+    }
 }
