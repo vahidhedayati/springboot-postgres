@@ -6,13 +6,16 @@ import io.cucumber.java.Before;
 
 import static com.codeborne.selenide.Selenide.open;
 
+/**
+ * Browser not used currently
+ */
 public class CucumberHooks {
 
     @Before
     public void setUp() {
         System.out.println("Starting Browser...");
         Browser.getDriver();
-        open("https://demo.nopcommerce.com/");
+        open("https://localhost:8080/");
     }
 
     @After
