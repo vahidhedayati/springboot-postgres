@@ -439,4 +439,8 @@ mytest=# select * from users;
 ```
 
 
-
+### OpenApi URL: `http://localhost:8080/swagger-ui/index.html` 
+Swagger also gives the configuration in JSON Format. By visiting `http://localhost:8080/v3/api-docs` & downloading the page. `api-docs.json`
+Visit: `https://swagger.io/tools/swagger-editor/` click on live demo and choose file import where you can import the above json file. 
+This gives you the capability to remotely carry out the tests written for project perhaps at a clients location where 
+there is no access to the underlying code. You can use generate server within menu to actually produce the code for the given tests   
