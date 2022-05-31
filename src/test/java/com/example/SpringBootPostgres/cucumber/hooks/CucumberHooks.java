@@ -1,13 +1,19 @@
 package com.example.SpringBootPostgres.cucumber.hooks;
 
 import com.example.SpringBootPostgres.ui.webdriver.Browser;
+import com.example.SpringBootPostgres.ui.webdriver.WebDriverFactory;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Allure;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.nio.file.Path;
 
@@ -18,7 +24,8 @@ import static com.codeborne.selenide.Selenide.open;
  */
 public class CucumberHooks {
 
-    @Before
+
+    @Before("@employee")
     public void setUp() {
         System.out.println("Starting Browser...");
         //WebDriver driver = Browser.getDriver();
@@ -34,8 +41,32 @@ public class CucumberHooks {
        // driver.get("https://www.google.co.uk");
     }
 
-    @After
+    @After("@employee")
     public void tearDown() {
         Browser.closeBrowser();
+    }
+
+
+
+    /**
+     * Runs before each tests(features) with tag '@ui'
+     */
+    @Before("@ui")
+    public void beforeEach() {
+        WebDriverFactory.createDriver();
+    }
+
+    /**
+     * Runs after each tests(features) with tag '@ui' whether pass or fail
+     */
+    @After("@ui")
+    public void afterEach(Scenario scenario) {
+        // To take screenshot and add it to Allure report if test fails
+        if (scenario.isFailed()) {
+            Allure.addAttachment(scenario.getName(), "image/png", new ByteArrayInputStream(
+                    ((TakesScreenshot) WebDriverFactory.getDriver()).getScreenshotAs(OutputType.BYTES)), "png");
+        }
+
+        WebDriverFactory.cleanUpDriver();
     }
 }

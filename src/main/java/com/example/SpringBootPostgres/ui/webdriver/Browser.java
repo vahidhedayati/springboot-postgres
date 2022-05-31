@@ -26,15 +26,30 @@ public class Browser {
 
     private static void loadDriver() {
         System.out.println("Attempting to set Chome driver ");
+
+        // When:
+        // WebDriverManager.chromedriver().setup()
+        // is called it loads in an inbuilt chrome driver:
+        // /home/{user}/.cache/selenium/chromedriver/linux64/102.0.5005.61/chromedriver
+        // this was clashing with my chrome version which needed drivers for 101
+
+        // Instead this loads in the correct chrome drivers 101 for Linux at my end
         System.setProperty("webdriver.chrome.driver", Path.of("").toAbsolutePath().toString()+ File.separator+"Drivers"+File.separator+"chromedriver");
+
+
         //WebDriverManager.chromedriver().setup();
-        //ChromeOptions options = new ChromeOptions();
+        ChromeOptions options = new ChromeOptions();
+
+        // This is needed for Chrome on Ubuntu
+        options.addArguments("--user-data-dir=~/.config/google-chrome");
         //options.setExperimentalOption("useAutomationExtension", false);
         //options.addArguments("--remote-debugging-port=9225");
-        //WebDriver driver = new ChromeDriver(options);
-        WebDriver driver = new ChromeDriver();
+        WebDriver driver = new ChromeDriver(options);
+        //WebDriver driver = new ChromeDriver();
         setDriver(driver);
+        driver.manage().window().maximize();
         WebDriverRunner.setWebDriver(driver);
+
     }
 
 
